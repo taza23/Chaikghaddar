@@ -3,198 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI VIP PRO | النسخة المفعلة 🚀</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>Smart Teacher Pro | النسخة الملكية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
         :root {
-            --primary-color: #00f2fe;
-            --accent-color: #4facfe;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --glass: rgba(255, 255, 255, 0.05);
+            --primary: #1e3a8a; --secondary: #3b82f6; --bg: #f8fafc;
+            --white: #ffffff; --text: #1e293b; --accent: #ef4444; --success: #22c55e;
+            --border: #cbd5e1;
         }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); margin: 0; color: var(--text); height: 100vh; overflow: hidden; }
+        .app-container { max-width: 500px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; position: relative; background: #fff; box-shadow: 0 0 25px rgba(0,0,0,0.05); }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 25px 20px; border-radius: 0 0 35px 35px; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .header h1 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: 0.5px; }
 
-        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-
-        body {
-            background: var(--bg-gradient);
-            color: white;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+        /* Content Area */
+        .main-content { flex: 1; padding: 20px; overflow-y: auto; padding-bottom: 90px; }
+        .card { background: var(--white); padding: 22px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #f1f5f9; }
+        .card h3 { margin: 0 0 20px; font-size: 17px; color: var(--primary); display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        
+        /* Forms & Inputs (Professional Design) */
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .input-box { margin-bottom: 15px; width: 100%; }
+        .input-box.full-width { grid-column: span 2; }
+        label { display: block; font-size: 13px; margin-bottom: 8px; font-weight: 700; color: #64748b; }
+        
+        input, select, textarea { 
+            width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); 
+            border-radius: 14px; font-family: 'Tajawal', sans-serif; box-sizing: border-box; 
+            font-size: 14px; transition: all 0.3s ease; background-color: #f8fafc; color: var(--text);
         }
-
-        .container {
-            width: 95%;
-            max-width: 850px;
-            height: 90vh;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        input:focus, select:focus, textarea:focus { 
+            border-color: var(--secondary); background-color: #fff; outline: none; 
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
         }
+        textarea { resize: none; }
 
-        .header {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            text-align: center;
-            border-bottom: 2px solid var(--primary-color);
-        }
+        /* Buttons */
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 14px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s; font-family: inherit; }
+        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2); }
+        .btn-primary:hover { background: #152c6b; transform: translateY(-2px); }
+        .btn-primary:active { transform: scale(0.98); }
+        
+        .btn-pdf { background: #059669; color: #fff; margin-top: 15px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2); }
+        .btn-absence { background: var(--accent); color: white; width: auto; padding: 10px 15px; font-size: 12px; border-radius: 10px; }
+        .btn-delete { background: #fee2e2; color: #ef4444; width: auto; padding: 10px; font-size: 12px; border-radius: 10px; }
 
-        .header h1 {
-            margin: 0;
-            font-size: 1.6rem;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-        }
+        /* Nav Bar */
+        .nav-bar { position: absolute; bottom: 0; width: 100%; background: #fff; display: flex; border-top: 1px solid #e2e8f0; padding: 12px 0; z-index: 100; box-shadow: 0 -5px 20px rgba(0,0,0,0.02); }
+        .nav-item { flex: 1; text-align: center; font-size: 12px; color: #94a3b8; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--primary); font-weight: 800; transform: translateY(-2px); }
+        .nav-item i { display: block; font-size: 22px; margin-bottom: 6px; }
 
-        #chat-window {
-            flex: 1;
-            padding: 25px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background: rgba(255, 255, 255, 0.02);
-        }
+        /* Student Items */
+        .student-item { background: #fff; padding: 18px; border-radius: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border-right: 5px solid var(--secondary); border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.3s; }
+        .student-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateX(-3px); }
+        .student-info { flex: 1; }
+        .student-actions { display: flex; gap: 8px; }
 
-        .message {
-            max-width: 80%;
-            padding: 15px;
-            border-radius: 20px;
-            font-size: 1rem;
-            line-height: 1.6;
-            animation: fadeIn 0.4s ease;
-            position: relative;
-        }
+        /* Utils */
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        #status-msg { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 14px 28px; border-radius: 50px; color: white; display: none; z-index: 2000; font-size: 14px; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
 
-        .user-msg {
-            align-self: flex-end;
-            background: var(--accent-color);
-            color: #0d1117;
-            font-weight: bold;
-            border-bottom-right-radius: 4px;
-        }
+        /* Search Bar */
+        .search-container { margin-bottom: 20px; position: relative; }
+        .search-container i { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 16px; }
+        .search-input { padding-right: 45px !important; padding-left: 15px !important; }
 
-        .ai-msg {
-            align-self: flex-start;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom-left-radius: 4px;
-        }
-
-        .input-area {
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 0 0 30px 30px;
-        }
-
-        .controls { display: flex; gap: 12px; }
-
-        input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.07);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            padding: 14px 20px;
-            border-radius: 15px;
-            color: white;
-            outline: none;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        input:focus { border-color: var(--primary-color); background: rgba(255, 255, 255, 0.12); }
-
-        button {
-            padding: 0 30px;
-            border-radius: 15px;
-            border: none;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: #0d1117;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--primary-color); }
-
-        .loader { display: none; color: var(--primary-color); text-align: center; margin-bottom: 10px; font-size: 0.9rem; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Class Manager */
+        .class-tag { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 6px 12px; border-radius: 20px; font-size: 12px; margin: 4px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="app-container">
+    <div id="status-msg"></div>
+
     <div class="header">
-        <h1>GEMINI AI VIP - ACTIVATED ✅</h1>
+        <h1 id="displaySubject">Smart Teacher Pro</h1>
+        <div id="displayTeacher" style="font-size: 14px; opacity: 0.9; margin-top: 8px;"></div>
     </div>
 
-    <div id="chat-window">
-        <div class="message ai-msg">مرحباً! الموقع الآن مفعل بالـ API Key الخاص بك. أنا جاهز للإجابة على أي سؤال، تحليل البيانات، أو حتى توقع نتائج المباريات! ⚽🤖</div>
-    </div>
+    <div class="main-content">
+        <div id="settingsTab" class="section active">
+            <div class="card">
+                <h3><i class="fa-solid fa-user-gear"></i> إعدادات الأستاذ</h3>
+                <div class="input-box">
+                    <label>اسم الأستاذ الكامل</label>
+                    <input type="text" id="tName" placeholder="مثال: الأستاذ شافيق">
+                </div>
+                <div class="input-box">
+                    <label>المادة</label>
+                    <input type="text" id="tSubject" placeholder="مثال: الفيزياء والكيمياء">
+                </div>
+                
+                <div style="border-top: 1px solid #f1f5f9; padding-top: 15px; margin-top: 10px;">
+                    <label>إدارة الأقسام</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" id="newClassName" placeholder="إسم القسم الجديد (مثال: 1BAK1)">
+                        <button class="btn btn-primary" style="width: auto; padding: 0 20px;" onclick="addClass()">إضافة</button>
+                    </div>
+                    <div id="classesListDisplay" style="margin-bottom: 15px; min-height: 30px;"></div>
+                </div>
 
-    <div class="input-area">
-        <div id="loader" class="loader">الذكاء الاصطناعي يحلل طلبك الآن... ⚡</div>
-        <div class="controls">
-            <input type="text" id="user-input" placeholder="اكتب سؤالك هنا...">
-            <button id="send-btn">إرسال</button>
+                <button class="btn btn-primary" onclick="saveSettings()">حفظ وتحديث النظام</button>
+            </div>
         </div>
+
+        <div id="addTab" class="section">
+            <div class="card">
+                <h3><i class="fa-solid fa-user-plus"></i> إضافة تلميذ جديد</h3>
+                
+                <div class="input-box">
+                    <label>القسم</label>
+                    <select id="stdClass"></select>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-box">
+                        <label>الاسم الشخصي</label>
+                        <input type="text" id="fName" placeholder="الاسم الشخصي">
+                    </div>
+                    <div class="input-box">
+                        <label>الاسم العائلي</label>
+                        <input type="text" id="lName" placeholder="الاسم العائلي">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label>اسم ولي الأمر الكامل</label>
+                    <input type="text" id="pName" placeholder="اسم ولي الأمر">
+                </div>
+
+                <div class="input-box">
+                    <label>رقم واتساب ولي الأمر</label>
+                    <input type="number" id="phone" placeholder="مثال: 212600000000" dir="ltr">
+                </div>
+
+                <div class="input-box">
+                    <label>عنوان السكن بالتفصيل</label>
+                    <textarea id="address" placeholder="العنوان" rows="2"></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveStudent()">حفظ بيانات التلميذ</button>
+            </div>
+        </div>
+
+        <div id="reportTab" class="section">
+            <div class="card">
+                <h3><i class="fa-solid fa-clock"></i> توقيت الحصة</h3>
+                <div class="input-group">
+                    <div class="input-box">
+                        <label>من</label>
+                        <input type="time" id="timeFrom">
+                    </div>
+                    <div class="input-box">
+                        <label>إلى</label>
+                        <input type="time" id="timeTo">
+                    </div>
+                </div>
+                <div class="input-box">
+                    <label>تصفية حسب القسم</label>
+                    <select id="filterClass" onchange="renderStudents()"></select>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchStd" class="search-input" placeholder="بحث عن تلميذ..." onkeyup="renderStudents()">
+            </div>
+
+            <div id="studentsList"></div>
+
+            <button class="btn btn-pdf" onclick="generatePDF()">
+                <i class="fa-solid fa-file-pdf"></i> تحميل لائحة القسم (PDF)
+            </button>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <div class="nav-item active" onclick="showTab('settingsTab', this)"><i class="fa-solid fa-house-chimney-user"></i>الرئيسية</div>
+        <div class="nav-item" onclick="showTab('addTab', this)"><i class="fa-solid fa-user-plus"></i>إضافة</div>
+        <div class="nav-item" onclick="showTab('reportTab', this)"><i class="fa-solid fa-clipboard-check"></i>الغياب</div>
     </div>
 </div>
 
-<script type="module">
-    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-
-    // المفتاح اللي عطيتيني مدمج هنا
-    const API_KEY = "AIzaSyBFavyExTNHvblLSTUm7mWDXjhpbWNH1rM";
+<script>
+    const API_URL = "https://api.ultramsg.com/instance170130/messages/chat";
+    const API_TOKEN = "0qxrltme9lywuw6a";
     
-    const chatWindow = document.getElementById('chat-window');
-    const userInput = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
-    const loader = document.getElementById('loader');
-
-    sendBtn.onclick = async () => {
-        const text = userInput.value.trim();
-        if (!text) return;
-
-        appendMessage(text, 'user-msg');
-        userInput.value = '';
-        loader.style.display = 'block';
-
-        try {
-            const genAI = new GoogleGenerativeAI(API_KEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-            const result = await model.generateContent(text);
-            const response = await result.response;
-            appendMessage(response.text(), 'ai-msg');
-        } catch (error) {
-            console.error(error);
-            appendMessage("عذراً، يبدو أن هناك ضغطاً على المفتاح أو مشكلة في الاتصال. جرب مرة أخرى.", 'ai-msg');
-        } finally {
-            loader.style.display = 'none';
-        }
+    // الهيكلة الجديدة للبيانات
+    let db = JSON.parse(localStorage.getItem('chafikTeacherDB_v2')) || { 
+        settings: { name: "", subject: "" }, 
+        classes: [], // [{id: 1, name: "1BAK1"}]
+        students: [] 
     };
 
-    function appendMessage(text, className) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `message ${className}`;
-        msgDiv.innerText = text;
-        chatWindow.appendChild(msgDiv);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
+    function showStatus(msg, isError = false) {
+        const el = document.getElementById('status-msg');
+        el.textContent = msg;
+        el.style.background = isError ? "#ef4444" : "#22c55e";
+        el.style.display = 'block';
+        setTimeout(() => el.style.display = 'none', 3000);
     }
 
-    userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendBtn.click(); });
-</script>
+    function showTab(id, el) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        el.classList.add('active');
+        updateUI();
+    }
 
+    // إدارة الأقسام بطريقة احترافية بالـ ID
+    function addClass() {
+        const name = document.getElementById('newClassName').value.trim();
+        if(!name) return showStatus("⚠️ المرجو كتابة إسم القسم", true);
+        
+        db.classes.push({ id: Date.now().toString(), name: name });
+        document.getElementById('newClassName').value = "";
+        saveToLocal();
+        updateUI();
+    }
+
+    function removeClass(id) {
+        if(confirm("ملاحظة: حذف القسم لن يحذف التلاميذ، لكنهم سيبقون بدون قسم. هل تريد المتابعة؟")) {
+            db.classes = db.classes.filter(c => c.id !== id);
+            saveToLocal();
+            updateUI();
+        }
+    }
+
+    function saveSettings() {
+        const name = document.getElementById('tName').value;
+        const sub = document.getElementById('tSubject').value;
+        
+        db.settings.name = name;
+        db.settings.subject = sub;
+        saveToLocal();
+        showStatus("✅ تم حفظ الإعدادات بنجاح");
+        updateUI();
+    }
+
+    function saveToLocal() {
+        localStorage.setItem('chafikTeacherDB_v2', JSON.stringify(db));
+    }
+
+    function updateUI() {
+        // تحديث الواجهة الرئيسية
+        document.getElementById('displaySubject').textContent = db.settings.subject || "Smart Teacher Pro";
+        document.getElementById('displayTeacher').textContent = db.settings.name ? "الأستاذ: " + db.settings.name : "";
+        document.getElementById('tName').value = db.settings.name || "";
+        document.getElementById('tSubject').value = db.settings.subject || "";
+
+        // تحديث لائحة الأقسام (Settings)
+        const tags = db.classes.map(c => `
+            <span class="class-tag">
+                ${c.name} <i class="fa-solid fa-xmark" style="cursor:pointer; margin-right:5px; color:#ef4444" onclick="removeClass('${c.id}')"></i>
+            </span>
+        `).join('');
+        document.getElementById('classesListDisplay').innerHTML = tags || "<span style='font-size:12px; color:#94a3b8;'>لا توجد أقسام مسجلة</span>";
+
+        // تحديث قوائم الاختيار (Dropdowns)
+        const options = db.classes.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        document.getElementById('stdClass').innerHTML = options;
+        document.getElementById('filterClass').innerHTML = `<option value="">-- اختر القسم للعرض --</option>` + options;
+    }
+
+    function saveStudent() {
+        const student = {
+            id: Date.now(),
+            fName: document.getElementById('fName').value.trim(),
+            lName: document.getElementById('lName').value.trim(),
+            pName: document.getElementById('pName').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            classId: document.getElementById('stdClass').value, // حفظ الـ ID وليس الإسم
+            address: document.getElementById('address').value.trim()
+        };
+
+        if(!student.fName || !student.lName || !student.phone || !student.classId) {
+            return showStatus("⚠️ المرجو ملء الإسم، رقم الهاتف، واختيار القسم", true);
+        }
+
+        db.students.push(student);
+        saveToLocal();
+        showStatus("✅ تم تسجيل التلميذ بنجاح");
+        
+        ['fName', 'lName', 'pName', 'phone', 'address'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    function deleteStudent(id) {
+        if(confirm("هل أنت متأكد من حذف هذا التلميذ نهائياً؟")) {
+            db.students = db.students.filter(s => s.id !== id);
+            saveToLocal();
+            renderStudents();
+            showStatus("🗑️ تم الحذف");
+        }
+    }
+
+    function renderStudents() {
+        const clsId = document.getElementById('filterClass').value;
+        const query = document.getElementById('searchStd').value.toLowerCase();
+        const list = document.getElementById('studentsList');
+        
+        const filtered = db.students.filter(s => 
+            s.classId === clsId && 
+            (`${s.fName} ${s.lName}`.toLowerCase().includes(query))
+        );
+
+        if(!clsId) { list.innerHTML = "<p style='text-align:center; color:#94a3b8; font-weight:bold;'>المرجو اختيار القسم أولاً</p>"; return; }
+        if(filtered.length === 0) { list.innerHTML = "<p style='text-align:center; color:#94a3b8;'>لا توجد نتائج</p>"; return; }
+        
+        list.innerHTML = filtered.map(s => `
+            <div class="student-item">
+                <div class="student-info">
+                    <div style="font-weight:800; font-size:15px;">${s.fName} ${s.lName}</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:4px;" dir="ltr"><i class="fa-solid fa-phone"></i> ${s.phone}</div>
+                </div>
+                <div class="student-actions">
+                    <button class="btn btn-absence" onclick="sendAbsenceAPI(${s.id})"><i class="fa-brands fa-whatsapp"></i> غياب</button>
+                    <button class="btn btn-delete" onclick="deleteStudent(${s.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    async function sendAbsenceAPI(studentId) {
+        const s = db.students.find(x => x.id == studentId);
+        const from = document.getElementById('timeFrom').value;
+        const to = document.getElementById('timeTo').value;
+
+        if(!from || !to) return showStatus("⚠️ حدد وقت الحصة من فضلك", true);
+
+        const day = new Date().toLocaleDateString('ar-MA', {weekday: 'long', day: 'numeric', month: 'long'});
+        const msg = `*إشعار غياب رسمي* 🏫\n\nالسيد(ة) ولي أمر التلميذ(ة): *${s.fName} ${s.lName}*\n\nنحيطكم علماً بأن ابنكم قد تغيب اليوم *${day}* عن حصة مادة *${db.settings.subject}*.\nالتوقيت: من ${from} إلى ${to}.\n\nالمرجو تبرير الغياب للإدارة في أقرب وقت.\n\n*الأستاذ: ${db.settings.name}*`;
+
+        showStatus("⏳ جاري الإرسال...");
+
+        try {
+            const params = new URLSearchParams();
+            params.append('token', API_TOKEN);
+            params.append('to', s.phone);
+            params.append('body', msg);
+
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params
+            });
+
+            if(res.ok) showStatus("✅ تم إرسال رسالة الغياب بنجاح");
+            else showStatus("❌ فشل في الإرسال (تحقق من إعدادات الواتساب)", true);
+        } catch(e) {
+            showStatus("❌ خطأ في الاتصال بالشبكة", true);
+        }
+    }
+
+    updateUI();
+</script>
 </body>
 </html>
